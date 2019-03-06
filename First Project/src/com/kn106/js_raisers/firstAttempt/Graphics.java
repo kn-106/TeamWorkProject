@@ -4,8 +4,10 @@ import javafx.animation.*;
 import javafx.application.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,8 +35,11 @@ public class Graphics extends Application {
 
     // Primary Stage
 
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
 
         // Image to work with
         Image image = new Image("https://popugai.info/wp-content/uploads/2016/03/cute_love_bird_colorful_1920x1200.jpg");
@@ -57,7 +62,7 @@ public class Graphics extends Application {
         Image setting_logo = new Image(new FileInputStream("pics/settings2.jpg"));
         ImageView setting_logoView = new ImageView(setting_logo);
         setting_logoView.setX(1860);
-        setting_logoView.setY(12);
+        setting_logoView.setY(10);
         root.getChildren().add(setting_logoView);
 
         // setting_logo onMouseIn
@@ -68,11 +73,12 @@ public class Graphics extends Application {
             public void handle(MouseEvent t) {
 
                 // FAQ button cursor changer
+                setting_logoView.setFitWidth(33);
+                setting_logoView.setFitHeight(33);
                 RotateTransition rt = new RotateTransition(Duration.millis(1000), setting_logoView);
                 rt.setByAngle(360);
                 rt.setCycleCount(1);
-                //rt.setAutoReverse(true);
-
+                rt.setAutoReverse(true);
                 rt.play();
 
             }
@@ -84,7 +90,8 @@ public class Graphics extends Application {
 
             @Override
             public void handle(MouseEvent t) {
-
+                setting_logoView.setFitWidth(30);
+                setting_logoView.setFitHeight(30);
             }
         });
 
@@ -93,8 +100,112 @@ public class Graphics extends Application {
             @Override
             public void handle(MouseEvent event) {
                 // popup menu for settings
+                background.setFill(Color.rgb(98,98,98));
+
+                Rectangle settings_popup_top = new Rectangle(310,100,1200, 10);
+                settings_popup_top.setFill(Color.rgb(209,186,202));
+
+                root.getChildren().add(settings_popup_top);
+
+                // settings popup main field
+                Rectangle settings_popup_main = new Rectangle(310,110,1200, 600);
+                settings_popup_main.setFill(Color.rgb(232,232,232));
+                root.getChildren().add(settings_popup_main);
+
+                // settings popup borders
+                Line settings_border1 = new Line(310,100,310,710);
+                settings_border1.setStroke(Color.rgb(85,83,85));
+
+                Line settings_border2 = new Line(1510,100,1510,710);
+                settings_border2.setStroke(Color.rgb(85,83,85));
+
+                Line settings_border3 = new Line(310,100,1510,100);
+                settings_border3.setStroke(Color.rgb(85,83,85));
+
+                Line settings_border4 = new Line(310,710,1510,710);
+                settings_border4.setStroke(Color.rgb(85,83,85));
+
+                root.getChildren().addAll(settings_border1, settings_border2, settings_border3, settings_border4);
+
+                // settings Text
+                Text text_inside_settings = new Text(800, 175, "Settings:");
+                text_inside_settings.setFill(Color.rgb(53,56,58));
+                text_inside_settings.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 45));
+                root.getChildren().add(text_inside_settings);
+
+                CheckBox settings_check_box = new CheckBox();
+                settings_check_box.setText("Use black/blue theme");
+                //settings_check_box.setMaxWidth(15);
+                settings_check_box.setLayoutX(400);
+                settings_check_box.setLayoutY(250);
+                settings_check_box.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 25));
+                settings_check_box.setPadding(new Insets(7, 7, 7, 7));
+                settings_check_box.setStyle(
+                        "-fx-border-color: rgb(209,186,202); "
+                                + "-fx-base: rgb(209,186,202);"
+                                + "-fx-border-insets: -5;"
+                                + "-fx-border-radius: 15;"
+                                + "-fx-border-style: dotted;"
+                                + "-fx-border-width: 2;"
+                );
+
+
+
+
+                root.getChildren().add(settings_check_box);
+//                Text text2_inside_settings = new Text(350, 235, "Please read carefully these terms before using this application." +
+//                        " By continuing using this application, you confirm that the terms are\nacceptable for you and you agree to be bound by them." +
+//                        " If you do not agree to all of the terms set forth herein, please do not\nuse the application.");
+//                text2_inside_settings.setFill(Color.rgb(53,56,58));
+//                text2_inside_settings.setFont(Font.font ("Proxima Nova", 20));
+//                root.getChildren().add(text2_inside_settings);
+
+                // Settings ❌(close) button
+                Text settings_close_but = new Text(1470, 145, "❌");
+                settings_close_but.setFont(Font.font ("Verdana", 28));
+                settings_close_but.setFill(Color.rgb(38,40,42));
+                root.getChildren().add(settings_close_but);
+
+                //Settings close button onMouseEntered
+                settings_close_but.setOnMouseEntered(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+
+                        // Settings button cursor changer
+                        settings_close_but.setStyle("-fx-cursor: hand");
+                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), settings_close_but);
+                        fillTransition.setFromValue(Color.rgb(38,40,42));
+                        fillTransition.setToValue(Color.rgb(214, 96, 148));
+                        fillTransition.setAutoReverse(true);
+                        fillTransition.play();
+
+                    }
+                });
+
+                //Terms and Conditions close button onMouseExited
+                settings_close_but.setOnMouseExited(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+                        settings_close_but.setFill(Color.rgb(38,40,42));
+                    }
+                });
+
+                // Terms and Conditions close button onMouseClicked
+                settings_close_but.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        root.getChildren().removeAll( settings_check_box, settings_close_but, settings_border1, settings_border2, settings_border3, settings_border4, settings_popup_top, settings_popup_main, text_inside_settings);
+                        background.setFill(Color.rgb(227,225,228));
+                    }
+                });
             }
         });
+
+
 
         // Logo
         Text logo = new Text(10, 35, "Java Project");
@@ -147,6 +258,7 @@ public class Graphics extends Application {
         TC_text.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                background.setFill(Color.rgb(98,98,98));
                 // Terms & Conditions popup top field
                 Rectangle popup_top = new Rectangle(310,100,1200, 10);
                 popup_top.setFill(Color.rgb(209,186,202));
@@ -180,7 +292,7 @@ public class Graphics extends Application {
                 root.getChildren().add(Text_inside_TC);
 
                 Text Text2_inside_TC = new Text(350, 235, "Please read carefully these terms before using this application." +
-                        " By continuing using the site, you confirm that the terms are\nacceptable for you and you agree to be bound by them." +
+                        " By continuing using this application, you confirm that the terms are\nacceptable for you and you agree to be bound by them." +
                         " If you do not agree to all of the terms set forth herein, please do not\nuse the application.");
                 Text2_inside_TC.setFill(Color.rgb(53,56,58));
                 Text2_inside_TC.setFont(Font.font ("Proxima Nova", 20));
@@ -225,9 +337,7 @@ public class Graphics extends Application {
                     @Override
                     public void handle(MouseEvent event) {
                         root.getChildren().removeAll(TC_close_but, TC_border1, TC_border2, TC_border3, TC_border4, popup_top, popup_main, Text_inside_TC, Text2_inside_TC);
-                        Rectangle deleteBut = new Rectangle(1450,110,50, 50);
-                        deleteBut.setFill(Color.rgb(227,225,228));
-                        root.getChildren().add(deleteBut);
+                        background.setFill(Color.rgb(227,225,228));
                     }
                 });
             }
@@ -266,6 +376,7 @@ public class Graphics extends Application {
         faq.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                background.setFill(Color.rgb(98,98,98));
                 ////////// FAQ popup field /////////////
 
                 // FAQ popup top field
@@ -344,16 +455,15 @@ public class Graphics extends Application {
                         FAQ_close_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
+                                background.setFill(Color.rgb(227,225,228));
                                 root.getChildren().removeAll(FAQ_close_button,inside_faq, inside_faq2, popup_border1, popup_border2, popup_border3, popup_border4, popup_top, popup_main);
-                                Rectangle deleteBut = new Rectangle(1450,310,50, 50);
-                                deleteBut.setFill(Color.rgb(227,225,228));
-                                root.getChildren().add(deleteBut);
                             }
                         });
 
 
             }
         });
+
 
 
         WritableImage wImage = new WritableImage((int)image.getWidth(), (int)image.getHeight());
@@ -378,8 +488,6 @@ public class Graphics extends Application {
         primaryStage.setTitle("KN-106 Teamwork Project");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-
 
     }
 
