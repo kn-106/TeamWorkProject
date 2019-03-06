@@ -3,31 +3,46 @@ package com.kn106.js_raisers.firstAttempt;
 import javafx.animation.*;
 import javafx.application.*;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import javafx.scene.shape.*;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
 
 public class Graphics extends Application {
+    public Desktop desktop = Desktop.getDesktop();
 
     public static void main(String[] args) {
         launch(args);
@@ -39,11 +54,6 @@ public class Graphics extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-
-        // Image to work with
-        Image image = new Image("https://popugai.info/wp-content/uploads/2016/03/cute_love_bird_colorful_1920x1200.jpg");
-        ImageView imageView = new ImageView(image);
 
         Group root = new Group();
         Scene scene = new Scene(root);
@@ -292,7 +302,7 @@ public class Graphics extends Application {
                 root.getChildren().add(Text_inside_TC);
 
                 Text Text2_inside_TC = new Text(350, 235, "Please read carefully these terms before using this application." +
-                        " By continuing using this application, you confirm that the terms are\nacceptable for you and you agree to be bound by them." +
+                        " By continuing using this application, you confirm that the terms\nare acceptable for you and you agree to be bound by them." +
                         " If you do not agree to all of the terms set forth herein, please do not\nuse the application.");
                 Text2_inside_TC.setFill(Color.rgb(53,56,58));
                 Text2_inside_TC.setFont(Font.font ("Proxima Nova", 20));
@@ -461,33 +471,118 @@ public class Graphics extends Application {
                         });
 
 
+
             }
         });
 
+        //work with image
+        Text rgb_change_button = new Text(500, 400,"RGB changer");
+        rgb_change_button.setFill(Color.rgb(53,56,58));
+        rgb_change_button.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 20));
+        root.getChildren().add(rgb_change_button);
 
+        //// rgb_change_button events
+        // rgb_change_button onMouseEntered
+        rgb_change_button.setOnMouseEntered(new EventHandler<MouseEvent>
+                () {
 
-        WritableImage wImage = new WritableImage((int)image.getWidth(), (int)image.getHeight());
-        PixelWriter pixelWriter = wImage.getPixelWriter();
+            @Override
+            public void handle(MouseEvent t) {
 
+                // rgb_change_button button cursor changer
+                rgb_change_button.setStyle("-fx-cursor: hand");
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), rgb_change_button );
+                fillTransition.setFromValue(Color.rgb(53,56,58));
+                fillTransition.setToValue(Color.rgb(214, 96, 148));
+                fillTransition.setAutoReverse(true);
+                fillTransition.play();
 
-        PixelReader pixelReader = image.getPixelReader();
-            for(int i = 0; i < image.getWidth(); i++){
-                for(int j = 0; j < image.getHeight(); j++){
-                    Color color = pixelReader.getColor(i, j);
-//                       pixelWriter.setColor(i, j, Color.color(color.getBlue(), color.getRed(), color.getGreen()));
-                }
             }
-        ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("test.png"));
-//        Image image1 = new Image("test.png");
-//        ImageView image1View = new ImageView(image1);
-//        imageView.setFitHeight(773);
-//        imageView.setFitWidth(1030);
-//        root.getChildren().add(image1View);
+        });
+
+        //rgb_change_button onMouseExited
+        rgb_change_button.setOnMouseExited(new EventHandler<MouseEvent>
+                () {
+
+            @Override
+            public void handle(MouseEvent t) {
+                rgb_change_button.setFill(Color.rgb(53,56,58));
+            }
+        });
+
+        // rgb_change_button onMouseClicked
+        rgb_change_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                final FileChooser fileChooser = new FileChooser();
+                final File start_file = fileChooser.showOpenDialog(primaryStage);
+
+                // Image to work with
+                Image start_image = new Image(start_file.toURI().toString()); // to URI is full path
+                ImageView start_imageView = new ImageView(start_image);
+
+                start_imageView.setFitWidth(800);
+                start_imageView.setFitHeight(450);
+                start_imageView.setX(50);
+                start_imageView.setY(200);
+
+                root.getChildren().add(start_imageView);
+
+                // Working with image
+                WritableImage wImage = new WritableImage((int)start_image.getWidth(), (int)start_image.getHeight());
+                PixelWriter pixelWriter = wImage.getPixelWriter();
+
+
+                PixelReader pixelReader = start_image.getPixelReader();
+                for(int i = 0; i < start_image.getWidth(); i++){
+                    for(int j = 0; j < start_image.getHeight(); j++){
+                        Color color = pixelReader.getColor(i, j);
+                        pixelWriter.setColor(i, j, Color.color(color.getBlue(), color.getRed(), color.getGreen()));
+                    }
+                }
+
+                // Try to save image to explorer
+                try {
+
+                    ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("test.png"));
+
+                    Image finish_image = new Image(new FileInputStream("test.png")); // to URI is full path
+                    ImageView finish_imageView = new ImageView(finish_image);
+
+                    finish_imageView.setFitWidth(800);
+                    finish_imageView.setFitHeight(450);
+                    finish_imageView.setX(900);
+                    finish_imageView.setY(200);
+
+                    root.getChildren().add(finish_imageView);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                      /////////////// Mb for future //////////////////////////
+                    //try {                                          @@@   With this try
+                    //desktop.open(file);                            @@@   catch thing we can
+//                    } catch (IOException ex) {                     @@@   open image directly from
+//                        Logger.getLogger(                          @@@   explorer with appointed
+//                                Graphics.class.getName()).log(     @@@   file type opener
+//                                Level.SEVERE, null, ex             @@@   !Don't delete please
+//                        );
+//                    }
+                      ////////////////////////////////////////////////////////
+
+
+
+            }
+        });
+
         primaryStage.setMaximized(true);
         primaryStage.getIcons().add(new Image("file:pics/agreement.png"));
         primaryStage.setTitle("KN-106 Teamwork Project");
         primaryStage.setScene(scene);
         primaryStage.show();
+
 
     }
 
