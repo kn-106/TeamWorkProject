@@ -539,18 +539,19 @@ public class Graphics extends Application {
                         pixelWriter.setColor(i, j, Color.color(color.getBlue(), color.getRed(), color.getGreen()));
                     }
                 }
+                ImageView finish_imageView = new ImageView();
+                finish_imageView.setImage(wImage);
+                finish_imageView.setFitWidth(800);
+                finish_imageView.setFitHeight(450);
+                finish_imageView.setX(970);
+                finish_imageView.setY(300);
 
-                // Try to save image to explorer
+                root.getChildren().add(finish_imageView);
+
 
                     root.getChildren().remove(rgb_change_button);
 
-                    try{
-                        ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.png"));
-                    Image finish_image = new Image(new FileInputStream("image.png"));
-                    ImageView finish_imageView = new ImageView(finish_image);
-
-
-                    Text old_pic_Text = new Text(470, 270,"Old");
+                    Text old_pic_Text = new Text(500, 270,"Old");
                     old_pic_Text.setFill(Color.rgb(53,56,58));
                     old_pic_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
                     root.getChildren().add(old_pic_Text);
@@ -560,12 +561,6 @@ public class Graphics extends Application {
                     new_pic_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
                     root.getChildren().add(new_pic_Text);
 
-                    finish_imageView.setFitWidth(800);
-                    finish_imageView.setFitHeight(450);
-                    finish_imageView.setX(970);
-                    finish_imageView.setY(300);
-
-                    root.getChildren().add(finish_imageView);
 
                     // Save jpg
                     Text save_jpg_Text = new Text(450, 850,"Save .jpg");
@@ -575,7 +570,7 @@ public class Graphics extends Application {
                     root.getChildren().add(save_jpg_Text);
 
                     // Save png
-                    Text save_png_Text = new Text(1330, 850,"Save .png");
+                    Text save_png_Text = new Text(1300, 850,"Save .png");
                     save_png_Text.setFill(Color.rgb(53,56,58));
                     save_png_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
 
@@ -866,10 +861,6 @@ public class Graphics extends Application {
                         }
                     });
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
                       /////////////// Mb for future //////////////////////////
                     //try {                                          @@@   With this try
                     //desktop.open(file);                            @@@   catch thing we can
@@ -881,8 +872,6 @@ public class Graphics extends Application {
 //                    }
                       ////////////////////////////////////////////////////////
 
-
-
             }
         });
 
@@ -891,7 +880,6 @@ public class Graphics extends Application {
         primaryStage.setTitle("KN-106 Teamwork Project");
         primaryStage.setScene(scene);
         primaryStage.show();
-
 
     }
 
