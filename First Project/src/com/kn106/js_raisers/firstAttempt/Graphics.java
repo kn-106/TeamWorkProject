@@ -420,7 +420,7 @@ public class Graphics extends Application {
                 root.getChildren().add(inside_faq);
 
                 // Students names
-                Text inside_faq2 = new Text(780, 430, "Stadnytskyi Dmytro\nPotashnik Mykhailo\nMrglotskyi Markyian");
+                Text inside_faq2 = new Text(780, 430, "Stadnytskyi Dmytro\nPotashnik Mykhailo\nMrglotskyi Markyian\nPashynina Alyona\nKazan Artur");
                 inside_faq2.setFill(Color.rgb(115,108,120));
                 inside_faq2.setFont(Font.font ("Proxima Nova", 30));
                 root.getChildren().add(inside_faq2);
@@ -523,7 +523,7 @@ public class Graphics extends Application {
                 start_imageView.setFitWidth(800);
                 start_imageView.setFitHeight(450);
                 start_imageView.setX(120);
-                start_imageView.setY(200);
+                start_imageView.setY(300);
 
                 root.getChildren().add(start_imageView);
 
@@ -541,19 +541,21 @@ public class Graphics extends Application {
                 }
 
                 // Try to save image to explorer
-                try {
 
-                    ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("test.png"));
+                    root.getChildren().remove(rgb_change_button);
 
-                    Image finish_image = new Image(new FileInputStream("test.png")); // to URI is full path
+                    try{
+                        ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.png"));
+                    Image finish_image = new Image(new FileInputStream("image.png"));
                     ImageView finish_imageView = new ImageView(finish_image);
 
-                    Text old_pic_Text = new Text(470, 170,"Old");
+
+                    Text old_pic_Text = new Text(470, 270,"Old");
                     old_pic_Text.setFill(Color.rgb(53,56,58));
                     old_pic_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
                     root.getChildren().add(old_pic_Text);
 
-                    Text new_pic_Text = new Text(1320, 170,"New");
+                    Text new_pic_Text = new Text(1320, 270,"New");
                     new_pic_Text.setFill(Color.rgb(53,56,58));
                     new_pic_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
                     root.getChildren().add(new_pic_Text);
@@ -561,27 +563,40 @@ public class Graphics extends Application {
                     finish_imageView.setFitWidth(800);
                     finish_imageView.setFitHeight(450);
                     finish_imageView.setX(970);
-                    finish_imageView.setY(200);
+                    finish_imageView.setY(300);
 
                     root.getChildren().add(finish_imageView);
 
-                    // Save or not
-                    Text save_Text = new Text(900, 750,"Save");
-                    save_Text.setFill(Color.rgb(53,56,58));
-                    save_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
+                    // Save jpg
+                    Text save_jpg_Text = new Text(450, 850,"Save .jpg");
+                    save_jpg_Text.setFill(Color.rgb(53,56,58));
+                    save_jpg_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
 
-                    root.getChildren().add(save_Text);
+                    root.getChildren().add(save_jpg_Text);
 
-                    //FAQ close button onMouseEntered
-                    save_Text.setOnMouseEntered(new EventHandler<MouseEvent>
+                    // Save png
+                    Text save_png_Text = new Text(1330, 850,"Save .png");
+                    save_png_Text.setFill(Color.rgb(53,56,58));
+                    save_png_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
+
+                    root.getChildren().add(save_png_Text);
+
+                    // 🡐 Back button
+                    Text back_button = new Text(60, 150,"\uD83E\uDC50 Back");
+                    back_button.setFill(Color.rgb(53,56,58));
+                    back_button.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 35));
+                    root.getChildren().add(back_button);
+                    // Back button listeners
+                    //back_button button onMouseEntered
+                    back_button.setOnMouseEntered(new EventHandler<MouseEvent>
                             () {
 
                         @Override
                         public void handle(MouseEvent t) {
 
-                            // FAQ button cursor changer
-                            save_Text.setStyle("-fx-cursor: hand");
-                            FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), save_Text);
+                            // 🡐 Back button cursor changer
+                            back_button.setStyle("-fx-cursor: hand");
+                            FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), back_button);
                             fillTransition.setFromValue(Color.rgb(38,40,42));
                             fillTransition.setToValue(Color.rgb(214, 96, 148));
                             fillTransition.setAutoReverse(true);
@@ -590,21 +605,63 @@ public class Graphics extends Application {
                         }
                     });
 
-                    //FAQ close button onMouseExited
-                    save_Text.setOnMouseExited(new EventHandler<MouseEvent>
+                    //back_button button onMouseExited
+                    back_button.setOnMouseExited(new EventHandler<MouseEvent>
                             () {
 
                         @Override
                         public void handle(MouseEvent t) {
-                            save_Text.setFill(Color.rgb(38,40,42));
+                            back_button.setFill(Color.rgb(38,40,42));
                         }
                     });
 
-                    // FAQ_close_button onMouseClicked
-                    save_Text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    // back_button onMouseClicked
+                    back_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            root.getChildren().removeAll(save_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+                            root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+                            root.getChildren().addAll(rgb_change_button);
+                        }
+                    });
+
+                    //save_jpg_Text button onMouseEntered
+                    save_jpg_Text.setOnMouseEntered(new EventHandler<MouseEvent>
+                            () {
+
+                        @Override
+                        public void handle(MouseEvent t) {
+
+                            // save_jpg_Text button cursor changer
+                            save_jpg_Text.setStyle("-fx-cursor: hand");
+                            FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), save_jpg_Text);
+                            fillTransition.setFromValue(Color.rgb(38,40,42));
+                            fillTransition.setToValue(Color.rgb(214, 96, 148));
+                            fillTransition.setAutoReverse(true);
+                            fillTransition.play();
+
+                        }
+                    });
+
+                    //save_jpg_Text button onMouseExited
+                    save_jpg_Text.setOnMouseExited(new EventHandler<MouseEvent>
+                            () {
+
+                        @Override
+                        public void handle(MouseEvent t) {
+                            save_jpg_Text.setFill(Color.rgb(38,40,42));
+                        }
+                    });
+
+                    // save_jpg_Text button onMouseClicked
+                    save_jpg_Text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            try{
+                            ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.jpg"));
+                            root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
                             ////////// Successfully saved popup field /////////////
 
@@ -636,7 +693,7 @@ public class Graphics extends Application {
 
                             // Successfully saved text
                             background.setFill(Color.rgb(98,98,98));
-                            Text inside_success_popup = new Text(850, 500, "Saved");
+                            Text inside_success_popup = new Text(700, 500, "Successfully saved");
                             inside_success_popup.setFill(Color.rgb(53,56,58));
                             inside_success_popup.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 45));
                             root.getChildren().add(inside_success_popup);
@@ -654,7 +711,7 @@ public class Graphics extends Application {
                                 @Override
                                 public void handle(MouseEvent t) {
 
-                                    // success_close_button button cursor changer
+                                    // success_close_button cursor changer
                                     success_close_button.setStyle("-fx-cursor: hand");
                                     FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), success_close_button);
                                     fillTransition.setFromValue(Color.rgb(38,40,42));
@@ -665,7 +722,7 @@ public class Graphics extends Application {
                                 }
                             });
 
-                            //FAQ close button onMouseExited
+                            //success_close_button onMouseExited
                             success_close_button.setOnMouseExited(new EventHandler<MouseEvent>
                                     () {
 
@@ -675,14 +732,137 @@ public class Graphics extends Application {
                                 }
                             });
 
-                            // FAQ_close_button onMouseClicked
+                            // success_close_button onMouseClicked
                             success_close_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent event) {
                                     background.setFill(Color.rgb(227,225,228));
                                     root.getChildren().removeAll(success_close_button, inside_success_popup, success_popup_border1, success_popup_border2, success_popup_border3, success_popup_border4, success_popup_main, success_popup_top);
+                                    root.getChildren().add(rgb_change_button);
                                 }
                             });
+
+                                }
+                            });
+
+                        ////////////////////////
+                        save_png_Text.setOnMouseEntered(new EventHandler<MouseEvent>
+                                () {
+
+                            @Override
+                            public void handle(MouseEvent t) {
+
+                                // save_png_Text button cursor changer
+                                save_png_Text.setStyle("-fx-cursor: hand");
+                                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), save_png_Text);
+                                fillTransition.setFromValue(Color.rgb(38,40,42));
+                                fillTransition.setToValue(Color.rgb(214, 96, 148));
+                                fillTransition.setAutoReverse(true);
+                                fillTransition.play();
+
+                            }
+                        });
+
+                        //save_png_Text  button onMouseExited
+                        save_png_Text.setOnMouseExited(new EventHandler<MouseEvent>
+                                () {
+
+                            @Override
+                            public void handle(MouseEvent t) {
+                                save_png_Text.setFill(Color.rgb(38,40,42));
+                            }
+                        });
+
+                        // save_png_Text button onMouseClicked
+                        save_png_Text.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                try {
+                                    ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.png"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+
+                                ////////// Successfully saved popup field /////////////
+
+                                // Successfully saved popup top field
+                                Rectangle success_popup_top2 = new Rectangle(310,300,1200, 15);
+                                success_popup_top2.setFill(Color.rgb(209,186,202));
+
+                                root.getChildren().add(success_popup_top2);
+
+                                // Successfully saved popup main field
+                                Rectangle success_popup_main2 = new Rectangle(310,315,1200, 400);
+                                success_popup_main2.setFill(Color.rgb(232,232,232));
+                                root.getChildren().add(success_popup_main2);
+
+                                // Successfully saved popup borders
+                                Line success_popup_border5 = new Line(310,300,310,715);
+                                success_popup_border5.setStroke(Color.rgb(85,83,85));
+
+                                Line success_popup_border6 = new Line(1510,300,1510,715);
+                                success_popup_border6.setStroke(Color.rgb(85,83,85));
+
+                                Line success_popup_border7 = new Line(310,300,1510,300);
+                                success_popup_border7.setStroke(Color.rgb(85,83,85));
+
+                                Line success_popup_border8 = new Line(310,715,1510,715);
+                                success_popup_border8.setStroke(Color.rgb(85,83,85));
+
+                                root.getChildren().addAll(success_popup_border5, success_popup_border6, success_popup_border7, success_popup_border8);
+
+                                // Successfully saved text
+                                background.setFill(Color.rgb(98,98,98));
+                                Text inside_success_popup2 = new Text(750, 500, "Successfully saved");
+                                inside_success_popup2.setFill(Color.rgb(53,56,58));
+                                inside_success_popup2.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 45));
+                                root.getChildren().add(inside_success_popup2);
+
+                                // success ❌(close) button
+                                Text success_close_button2 = new Text(1470, 345, "❌");
+                                success_close_button2.setFont(Font.font ("Verdana", 28));
+                                success_close_button2.setFill(Color.rgb(38,40,42));
+                                root.getChildren().add(success_close_button2);
+
+                                //success_close_button onMouseExited
+                                success_close_button2.setOnMouseExited(new EventHandler<MouseEvent>
+                                        () {
+
+                                    @Override
+                                    public void handle(MouseEvent t) {
+                                        success_close_button2.setFill(Color.rgb(38,40,42));
+                                    }
+                                });
+
+                                // success_close_button onMouseClicked
+                                success_close_button2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                    @Override
+                                    public void handle(MouseEvent event) {
+                                        background.setFill(Color.rgb(227,225,228));
+                                        root.getChildren().removeAll(success_close_button2, inside_success_popup2, success_popup_border5, success_popup_border6, success_popup_border7, success_popup_border8, success_popup_main2, success_popup_top2);
+                                        root.getChildren().add(rgb_change_button);
+                                    }
+                                });
+
+                                //success close button onMouseEntered
+                                success_close_button2.setOnMouseEntered(new EventHandler<MouseEvent>
+                                        () {
+
+                                    @Override
+                                    public void handle(MouseEvent t) {
+
+                                        // success_close_button cursor changer
+                                        success_close_button2.setStyle("-fx-cursor: hand");
+                                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), success_close_button2);
+                                        fillTransition.setFromValue(Color.rgb(38,40,42));
+                                        fillTransition.setToValue(Color.rgb(214, 96, 148));
+                                        fillTransition.setAutoReverse(true);
+                                        fillTransition.play();
+
+                                    }
+                                });
+
                         }
                     });
 
