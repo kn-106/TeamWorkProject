@@ -9,6 +9,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
@@ -65,6 +67,21 @@ public class Graphics extends Application {
         // greetings menu
         background.setFill(Color.rgb(98,98,98));
         root.getChildren().add(background);
+
+        // header of main
+        Rectangle main_header = new Rectangle(0,0,1920, 50);
+        main_header.setFill(Color.rgb(54,57,65));
+
+        // header menu icon
+        Rectangle header_menu_rect = new Rectangle(0,0,70, 50);
+        header_menu_rect.setFill(Color.rgb(54,57,65));
+        Image header_menu_icon = new Image(new FileInputStream("pics/menu_screen.jpg"));
+        ImageView header_menu_iconView = new ImageView(header_menu_icon);
+        header_menu_iconView.setX(20);
+        header_menu_iconView.setY(10);
+        Text header_icon_text = new Text(16, 40, "Menu");
+        header_icon_text.setFont(Font.font ("Dubai", 14));
+        header_icon_text.setFill(Color.WHITE);
 
         ///////////////////////////////  Start menu ///////////////////////////////////////////////
           // Welcome text
@@ -236,54 +253,51 @@ public class Graphics extends Application {
         inside_success_popup.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 45));
 
         // rgb change slider RED
-        Text slider_redText = new Text(1700, 50, "Red: ");
-        slider_redText.setFont(Font.font ("Dubai Light", FontWeight.THIN, 20));
+        Text slider_redText = new Text(1760, 81, "Red: ");
+        slider_redText.setFont(Font.font ("Dubai", FontWeight.THIN, 14));
         slider_redText.setFill(Color.rgb(38,40,42));
 
         Slider slider_red = new Slider();
         slider_red.setMin(0);
         slider_red.setMax(100);
         slider_red.setValue(100);
-        slider_red.setShowTickLabels(true);
-        slider_red.setShowTickMarks(true);
-        slider_red.setMajorTickUnit(50);
-        slider_red.setMinorTickCount(5);
-        slider_red.setBlockIncrement(10);
-        slider_red.setLayoutX(1770);
-        slider_red.setLayoutY(50);
+        //slider_red.setStyle("-fx-slider-track-color: red; ");
+//        settings_check_box.setStyle(
+//                "-fx-border-color: rgb(209,186,202); "
+//                        + "-fx-base: rgb(209,186,202);"
+//                        + "-fx-border-insets: -5;"
+//                        + "-fx-border-radius: 15;"
+//                        + "-fx-border-style: dotted;"
+//                        + "-fx-border-width: 2;"
+//        );
+        slider_red.setMaxWidth(100);
+        slider_red.setLayoutX(1800);
+        slider_red.setLayoutY(70);
 
         // rgb change slider Green
-        Text slider_greenText = new Text(1700, 80, "Green: ");
-        slider_greenText.setFont(Font.font ("Dubai Light", FontWeight.THIN, 20));
+        Text slider_greenText = new Text(1760, 101, "Green: ");
+        slider_greenText.setFont(Font.font ("Dubai", FontWeight.THIN, 14));
         slider_greenText.setFill(Color.rgb(38,40,42));
 
         Slider slider_green = new Slider();
         slider_green.setMin(0);
         slider_green.setMax(100);
         slider_green.setValue(100);
-        slider_green.setShowTickLabels(true);
-        slider_green.setShowTickMarks(true);
-        slider_green.setMajorTickUnit(50);
-        slider_green.setMinorTickCount(5);
-        slider_green.setBlockIncrement(10);
-        slider_green.setLayoutX(1770);
-        slider_green.setLayoutY(80);
+        slider_green.setMaxWidth(100);
+        slider_green.setLayoutX(1800);
+        slider_green.setLayoutY(90);
 
         // rgb change slider BLUE
-        Text slider_blueText = new Text(1700, 110, "Blue: ");
-        slider_blueText.setFont(Font.font ("Dubai Light", FontWeight.THIN, 20));
+        Text slider_blueText = new Text(1760, 121, "Blue: ");
+        slider_blueText.setFont(Font.font ("Dubai", FontWeight.THIN, 14));
         slider_blueText.setFill(Color.rgb(38,40,42));
 
         Slider slider_blue = new Slider();
         slider_blue.setMin(0);
         slider_blue.setMax(100);
         slider_blue.setValue(100);
-        slider_blue.setShowTickLabels(true);
-        slider_blue.setShowTickMarks(true);
-        slider_blue.setMajorTickUnit(50);
-        slider_blue.setMinorTickCount(5);
-        slider_blue.setBlockIncrement(10);
-        slider_blue.setLayoutX(1770);
+        slider_blue.setMaxWidth(100);
+        slider_blue.setLayoutX(1800);
         slider_blue.setLayoutY(110);
 
         //success close button onMouseEntered
@@ -295,7 +309,7 @@ public class Graphics extends Application {
 
                 // success_close_button cursor changer
                 success_close_button.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), success_close_button);
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), success_close_button);
                 fillTransition.setFromValue(Color.rgb(38,40,42));
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
@@ -318,7 +332,7 @@ public class Graphics extends Application {
         success_close_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                background.setFill(Color.rgb(227,225,228));
+                background.setFill(Color.rgb(197,199,197));
                 root.getChildren().removeAll(success_close_button, inside_success_popup, success_popup_border1, success_popup_border2, success_popup_border3, success_popup_border4, success_popup_main, success_popup_top);
                 root.getChildren().add(rgb_change_button);
             }
@@ -332,7 +346,7 @@ public class Graphics extends Application {
 
                 // 🡐 Back button cursor changer
                 back_button.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), back_button);
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), back_button);
                 fillTransition.setFromValue(Color.rgb(38,40,42));
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
@@ -362,7 +376,7 @@ public class Graphics extends Application {
 
                 // save_jpg_Text button cursor changer
                 save_jpg_Text.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), save_jpg_Text);
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), save_jpg_Text);
                 fillTransition.setFromValue(Color.rgb(38,40,42));
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
@@ -390,7 +404,7 @@ public class Graphics extends Application {
 
                 // save_png_Text button cursor changer
                 save_png_Text.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), save_png_Text);
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), save_png_Text);
                 fillTransition.setFromValue(Color.rgb(38,40,42));
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
@@ -525,7 +539,7 @@ public class Graphics extends Application {
 
                         // Settings button cursor changer
                         settings_close_but.setStyle("-fx-cursor: hand");
-                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), settings_close_but);
+                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), settings_close_but);
                         fillTransition.setFromValue(Color.rgb(38,40,42));
                         fillTransition.setToValue(Color.rgb(214, 96, 148));
                         fillTransition.setAutoReverse(true);
@@ -582,7 +596,7 @@ public class Graphics extends Application {
 
                 // Terms & Conditions button cursor changer
                 TC_text.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), TC_text);
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), TC_text);
                 fillTransition.setFromValue(Color.WHITE);
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
@@ -662,7 +676,7 @@ public class Graphics extends Application {
 
                         // Terms and Conditions button cursor changer
                         TC_close_but.setStyle("-fx-cursor: hand");
-                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), TC_close_but);
+                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), TC_close_but);
                         fillTransition.setFromValue(Color.rgb(38,40,42));
                         fillTransition.setToValue(Color.rgb(214, 96, 148));
                         fillTransition.setAutoReverse(true);
@@ -702,7 +716,7 @@ public class Graphics extends Application {
 
                 // FAQ button cursor changer
                 faq.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), faq);
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), faq);
                 fillTransition.setFromValue(Color.WHITE);
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
@@ -781,7 +795,7 @@ public class Graphics extends Application {
 
                         // FAQ button cursor changer
                         FAQ_close_button.setStyle("-fx-cursor: hand");
-                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), FAQ_close_button);
+                        FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), FAQ_close_button);
                         fillTransition.setFromValue(Color.rgb(38,40,42));
                         fillTransition.setToValue(Color.rgb(214, 96, 148));
                         fillTransition.setAutoReverse(true);
@@ -853,7 +867,7 @@ public class Graphics extends Application {
                 root.getChildren().removeAll(new_file_Text, new_file_imageView, open_file_Text, open_folderImageView, paste_file_Text, paste_folderImageView,
                         first_adv, greetings_firstAdv_header, greetings_firstAdv_main, first_image_with_desc,second_image_with_desc, welcome_text,
                         create_button, open_button, paste_button, tiger_parrot_imageView);
-                background.setFill(Color.rgb(180, 183, 181));
+                background.setFill(Color.rgb(197,199,197));
 
                 File start_file = fileChooser.showOpenDialog(primaryStage);
 
@@ -896,9 +910,9 @@ public class Graphics extends Application {
 
                         finish_imageView.setFitWidth(1280);
                         finish_imageView.setFitHeight(720);
-                        finish_imageView.setX(10);
+                        finish_imageView.setX(300);
                         finish_imageView.setY(100);
-                        root.getChildren().add(finish_imageView);
+                        //root.getChildren().add(finish_imageView);
 
                         root.getChildren().remove(rgb_change_button);
                         root.getChildren().addAll(old_pic_Text, new_pic_Text, save_jpg_Text, save_jpg_Text, save_png_Text, back_button);
@@ -910,8 +924,10 @@ public class Graphics extends Application {
                         back_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
-                                root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
-                                root.getChildren().addAll(rgb_change_button);
+                                root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, start_imageView,
+                                        finish_imageView, new_pic_Text, old_pic_Text, slider_red, slider_green, slider_blue,
+                                        slider_redText, slider_greenText, slider_blueText);
+                                //root.getChildren().addAll(rgb_change_button);
                             }
                         });
 
@@ -1061,7 +1077,7 @@ public class Graphics extends Application {
 
                         finish_imageView.setFitWidth(1280);
                         finish_imageView.setFitHeight(720);
-                        finish_imageView.setX(10);
+                        finish_imageView.setX(150);
                         finish_imageView.setY(100);
                         root.getChildren().add(finish_imageView);
 
@@ -1238,7 +1254,7 @@ public class Graphics extends Application {
                 ImageView finish_imageView = new ImageView();
 
 
-                root.getChildren().addAll(start_imageView);
+                root.getChildren().addAll(start_imageView, main_header, header_menu_rect, header_menu_iconView, header_icon_text);
 
 
                         root.getChildren().addAll(slider_redText, slider_greenText, slider_blueText, slider_red, slider_green, slider_blue);
@@ -1249,11 +1265,10 @@ public class Graphics extends Application {
 
                         PixelReader pixelReader = start_image.getPixelReader();
 
-                        root.getChildren().remove(start_imageView);
 
                         finish_imageView.setFitWidth(1280);
                         finish_imageView.setFitHeight(720);
-                        finish_imageView.setX(10);
+                        finish_imageView.setX(300);
                         finish_imageView.setY(100);
 //                        root.getChildren().add(finish_imageView);
 //
@@ -1268,24 +1283,97 @@ public class Graphics extends Application {
 
                         root.getChildren().addAll(save_jpg_Text, save_png_Text, back_button);
 
-
-                Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+                Timeline oneSecTimer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
                     @Override
                     public void handle(ActionEvent event) {
                         for(int i = 0; i < start_image.getWidth(); i++){
                             for(int j = 0; j < start_image.getHeight(); j++){
                                 Color color = pixelReader.getColor(i, j);
-                                pixelWriter.setColor(i, j, Color.color(slider_red.valueProperty().doubleValue() / 100, color.getGreen(), color.getBlue()));
+                                pixelWriter.setColor(i, j, Color.color(color.getRed() * slider_red.valueProperty().doubleValue() / 100,
+                                        color.getGreen() * slider_green.valueProperty().doubleValue() / 100,
+                                        color.getBlue() * slider_blue.valueProperty().doubleValue() / 100));
                             }
                         }
-
+                        root.getChildren().remove(start_imageView);
                         finish_imageView.setImage(wImage);
                         root.getChildren().add(finish_imageView);
                     }
                 }));
-                fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-                fiveSecondsWonder.play();
+                oneSecTimer.setCycleCount(Timeline.INDEFINITE);
+                slider_red.setOnMouseEntered(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+                        oneSecTimer.play();
+                    }
+                });
+                slider_red.setOnMouseExited(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+                        oneSecTimer.stop();
+                    }
+                });
+
+                slider_green.setOnMouseEntered(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+                        oneSecTimer.play();
+                    }
+                });
+                slider_green.setOnMouseExited(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+                        oneSecTimer.stop();
+                    }
+                });
+
+                slider_blue.setOnMouseEntered(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+                        oneSecTimer.play();
+                    }
+                });
+                slider_blue.setOnMouseExited(new EventHandler<MouseEvent>
+                        () {
+
+                    @Override
+                    public void handle(MouseEvent t) {
+                        oneSecTimer.stop();
+                    }
+                });
+//                Button tmp_button = new Button("Rect");
+//                root.getChildren().add(tmp_button);
+//                // draw smth on photo using canvas
+                  javafx.scene.canvas.Canvas canvas = new Canvas(1580, 820); // 300 + 1280 and 100 + 720 !!!
+//                GraphicsContext gc = canvas.getGraphicsContext2D();
+//                gc.setLineWidth(2.0);
+//                // Set fill color
+//                gc.setFill(Color.RED);
+//                // Draw a rounded Rectangle
+//                gc.fillRoundRect(310, 110, 200, 200, 10, 10);
+//
+//                canvas.snapshot(null, wImage);
+//                //root.getChildren().add(canvas);
+//
+//                tmp_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//                    @Override
+//                    public void handle(MouseEvent event) {
+//                        root.getChildren().add(canvas);
+//                    }
+//                });
+//
+//
+//                // end of canvas
                         // Back button listeners
                         //back_button button onMouseEntered
 
@@ -1293,7 +1381,10 @@ public class Graphics extends Application {
                         back_button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                             @Override
                             public void handle(MouseEvent event) {
-                                root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, finish_imageView);
+                                oneSecTimer.stop();
+                                root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text,start_imageView,
+                                        finish_imageView, slider_red, slider_green, slider_blue, slider_redText, slider_greenText,
+                                        slider_blueText, header_menu_iconView, header_menu_rect, header_icon_text, main_header);
                                 root.getChildren().addAll(welcome_text, create_button, open_button, paste_button, new_file_imageView,
                                         new_file_Text, open_file_Text, paste_file_Text, open_folderImageView, paste_folderImageView,
                                         first_adv, second_image_with_desc, greetings_firstAdv_header, greetings_firstAdv_main,
@@ -1307,10 +1398,11 @@ public class Graphics extends Application {
                             public void handle(MouseEvent event) {
                                 try{
                                     ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.jpg"));
-                                    root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+                                    root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
+                                oneSecTimer.stop();
                                 root.getChildren().addAll(success_popup_top,success_popup_border1, success_popup_border2, success_popup_border3, success_popup_border4);
                                 background.setFill(Color.rgb(98,98,98));
                                 root.getChildren().addAll(inside_success_popup, success_close_button);
@@ -1324,10 +1416,11 @@ public class Graphics extends Application {
                             public void handle(MouseEvent event) {
                                 try{
                                     ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.png"));
-                                    root.getChildren().removeAll(back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+                                    root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
+                                oneSecTimer.stop();
                                 root.getChildren().addAll(success_popup_top, success_popup_main, success_popup_border1, success_popup_border2, success_popup_border3, success_popup_border4);
                                 background.setFill(Color.rgb(98,98,98));
                                 root.getChildren().addAll(inside_success_popup, success_close_button);
@@ -1415,7 +1508,7 @@ public class Graphics extends Application {
 
                 // success_close_button cursor changer
                 success_close_button.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), success_close_button);
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), success_close_button);
                 fillTransition.setFromValue(Color.rgb(38,40,42));
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
@@ -1434,7 +1527,7 @@ public class Graphics extends Application {
 
                 // rgb_change_button button cursor changer
                 rgb_change_button.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.3), rgb_change_button );
+                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), rgb_change_button );
                 fillTransition.setFromValue(Color.rgb(53,56,58));
                 fillTransition.setToValue(Color.rgb(214, 96, 148));
                 fillTransition.setAutoReverse(true);
