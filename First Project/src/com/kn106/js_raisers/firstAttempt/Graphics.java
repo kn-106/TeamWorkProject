@@ -70,17 +70,17 @@ public class Graphics extends Application {
 
         // header of main
         Rectangle main_header = new Rectangle(0,0,1920, 50);
-        main_header.setFill(Color.rgb(54,57,65));
+        main_header.setFill(Color.rgb(63,66,73));
 
         // header menu icon
         Rectangle header_menu_rect = new Rectangle(0,0,70, 50);
-        header_menu_rect.setFill(Color.rgb(54,57,65));
+        header_menu_rect.setFill(Color.rgb(63,66,73));
         Image header_menu_icon = new Image(new FileInputStream("pics/menu_screen.jpg"));
         ImageView header_menu_iconView = new ImageView(header_menu_icon);
         header_menu_iconView.setX(20);
         header_menu_iconView.setY(10);
-        Text header_icon_text = new Text(16, 40, "Menu");
-        header_icon_text.setFont(Font.font ("Dubai", 14));
+        Text header_icon_text = new Text(17, 40, "Menu");
+        header_icon_text.setFont(Font.font ("Dubai", 13));
         header_icon_text.setFill(Color.WHITE);
 
         ///////////////////////////////  Start menu ///////////////////////////////////////////////
@@ -208,19 +208,19 @@ public class Graphics extends Application {
         new_pic_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
 
         // Save jpg
-        Text save_jpg_Text = new Text(450, 850,"Save .jpg");
+        Text save_jpg_Text = new Text(450, 850,"Save .jpg\n(will be moved to menu)");
         save_jpg_Text.setFill(Color.rgb(53,56,58));
         save_jpg_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
 
         // Save png
-        Text save_png_Text = new Text(1300, 850,"Save .png");
+        Text save_png_Text = new Text(1300, 850,"Save .png\n(will be moved to menu)");
         save_png_Text.setFill(Color.rgb(53,56,58));
         save_png_Text.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
 
         // 🡐 Back button
-        Text back_button = new Text(60, 150,"\uD83E\uDC50 Back");
+        Text back_button = new Text(30, 100,"\uD83E\uDC50 Back");
         back_button.setFill(Color.rgb(53,56,58));
-        back_button.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 35));
+        back_button.setFont(Font.font ("Proxima Nova", FontWeight.BOLD, 30));
 
         // Successfully saved popup main field
         Rectangle success_popup_main = new Rectangle(310,315,1200, 400);
@@ -299,6 +299,54 @@ public class Graphics extends Application {
         slider_blue.setMaxWidth(100);
         slider_blue.setLayoutX(1800);
         slider_blue.setLayoutY(110);
+
+        // top navbar1 : navbar_brushesRect, navbar_brushesIconView, navbar_brushesIconText
+        Rectangle navbar_brushesRect = new Rectangle(760,0,70, 50);
+        navbar_brushesRect.setFill(Color.rgb(63,66,73));
+        Image navbar_brushesIcon = new Image(new FileInputStream("pics/brush.jpg"));
+        ImageView navbar_brushesIconView = new ImageView(navbar_brushesIcon);
+        navbar_brushesIconView.setX(760);
+        navbar_brushesIconView.setY(10);
+        Text navbar_brushesIconText = new Text(751, 43, "Brushes");
+        navbar_brushesIconText.setFont(Font.font ("Dubai", 13));
+        navbar_brushesIconText.setFill(Color.WHITE);
+
+        // top navbar2 : navbar_shapesRect, navbar_shapesIconView, navbar_shapesIconText
+        Rectangle navbar_shapesRect = new Rectangle(830,0,70, 50);
+        navbar_shapesRect.setFill(Color.rgb(63,66,73));
+        Image navbar_shapesIcon = new Image(new FileInputStream("pics/shapes.jpg"));
+        ImageView navbar_shapesIconView = new ImageView(navbar_shapesIcon);
+        navbar_shapesIconView.setX(830);
+        navbar_shapesIconView.setY(10);
+        Text navbar_shapesIconText = new Text(824, 43, "Shapes");
+        navbar_shapesIconText.setFont(Font.font ("Dubai", 13));
+        navbar_shapesIconText.setFill(Color.WHITE);
+
+        // top navbar3 : navbar_stickersRect, navbar_stickersIconView, navbar_stickersIconText
+        Rectangle navbar_stickersRect = new Rectangle(900,0,70, 50);
+        navbar_stickersRect.setFill(Color.rgb(63,66,73));
+        Image navbar_stickersIcon = new Image(new FileInputStream("pics/stickerss.jpg"));
+        ImageView navbar_stickersIconView = new ImageView(navbar_stickersIcon);
+        navbar_stickersIconView.setX(900);
+        navbar_stickersIconView.setY(10);
+        Text navbar_stickersIconText = new Text(891, 43, "Stickers");
+        navbar_stickersIconText.setFont(Font.font ("Dubai", 13));
+        navbar_stickersIconText.setFill(Color.WHITE);
+
+        // top navbar4 : navbar_textRect, navbar_textIconView, navbar_textIconText
+        Rectangle navbar_textRect = new Rectangle(970,0,70, 50);
+        navbar_textRect.setFill(Color.rgb(63,66,73));
+        Image navbar_textIcon = new Image(new FileInputStream("pics/text.jpg"));
+        ImageView navbar_textIconView = new ImageView(navbar_textIcon);
+        navbar_textIconView.setX(970);
+        navbar_textIconView.setY(10);
+        Text navbar_textIconText = new Text(968, 43, "Text");
+        navbar_textIconText.setFont(Font.font ("Dubai", 13));
+        navbar_textIconText.setFill(Color.WHITE);
+
+        // field for features
+        Rectangle field_for_features = new Rectangle(1675,50,245, 1030);
+        field_for_features.setFill(Color.rgb(240,242,243));
 
         //success close button onMouseEntered
         success_close_button.setOnMouseEntered(new EventHandler<MouseEvent>
@@ -430,8 +478,10 @@ public class Graphics extends Application {
         header.setFill(Color.rgb(38,40,42));
 
         // Settings
-        Image setting_logo = new Image(new FileInputStream("pics/settings2.jpg"));
+        Image setting_logo = new Image(new FileInputStream("pics/settings_logo.png"));
         ImageView setting_logoView = new ImageView(setting_logo);
+        setting_logoView.setFitWidth(30);
+        setting_logoView.setFitHeight(30);
         setting_logoView.setX(1860);
         setting_logoView.setY(10);
 
@@ -470,10 +520,12 @@ public class Graphics extends Application {
             @Override
             public void handle(MouseEvent event) {
                 // popup menu for settings
-                background.setFill(Color.rgb(98,98,98));
+                Rectangle settings_popup_top_background = new Rectangle(0,0,1920, 1080);
+                settings_popup_top_background.setFill(Color.rgb(63,66,73));
+                root.getChildren().add(settings_popup_top_background);
 
                 Rectangle settings_popup_top = new Rectangle(310,100,1200, 15);
-                settings_popup_top.setFill(Color.rgb(209,186,202));
+                settings_popup_top.setFill(Color.BLACK);
 
                 root.getChildren().add(settings_popup_top);
 
@@ -562,7 +614,7 @@ public class Graphics extends Application {
                 settings_close_but.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        root.getChildren().removeAll( settings_check_box, settings_close_but, settings_border1, settings_border2, settings_border3, settings_border4, settings_popup_top, settings_popup_main, text_inside_settings);
+                        root.getChildren().removeAll( settings_check_box,settings_popup_top_background, settings_close_but, settings_border1, settings_border2, settings_border3, settings_border4, settings_popup_top, settings_popup_main, text_inside_settings);
                         background.setFill(Color.rgb(227,225,228));
                     }
                 });
@@ -877,7 +929,7 @@ public class Graphics extends Application {
 
                 start_imageView.setFitWidth(1280);
                 start_imageView.setFitHeight(720);
-                start_imageView.setX(300);
+                start_imageView.setX(200);
                 start_imageView.setY(100);
 
                 ImageView finish_imageView = new ImageView();
@@ -910,7 +962,7 @@ public class Graphics extends Application {
 
                         finish_imageView.setFitWidth(1280);
                         finish_imageView.setFitHeight(720);
-                        finish_imageView.setX(300);
+                        finish_imageView.setX(200);
                         finish_imageView.setY(100);
                         //root.getChildren().add(finish_imageView);
 
@@ -1044,7 +1096,7 @@ public class Graphics extends Application {
 
                 start_imageView.setFitWidth(1280);
                 start_imageView.setFitHeight(720);
-                start_imageView.setX(300);
+                start_imageView.setX(200);
                 start_imageView.setY(100);
 
                 ImageView finish_imageView = new ImageView();
@@ -1077,7 +1129,7 @@ public class Graphics extends Application {
 
                         finish_imageView.setFitWidth(1280);
                         finish_imageView.setFitHeight(720);
-                        finish_imageView.setX(150);
+                        finish_imageView.setX(200);
                         finish_imageView.setY(100);
                         root.getChildren().add(finish_imageView);
 
@@ -1248,13 +1300,18 @@ public class Graphics extends Application {
 
                 start_imageView.setFitWidth(1280);
                 start_imageView.setFitHeight(720);
-                start_imageView.setX(300);
+                start_imageView.setX(200);
                 start_imageView.setY(100);
 
                 ImageView finish_imageView = new ImageView();
 
 
-                root.getChildren().addAll(start_imageView, main_header, header_menu_rect, header_menu_iconView, header_icon_text);
+                root.getChildren().addAll(start_imageView, main_header, header_menu_rect, field_for_features,
+                        header_menu_iconView, header_icon_text, setting_logoView,
+                        navbar_brushesRect, navbar_brushesIconView, navbar_brushesIconText,
+                        navbar_shapesRect, navbar_shapesIconView, navbar_shapesIconText,
+                        navbar_stickersRect, navbar_stickersIconView, navbar_stickersIconText,
+                        navbar_textRect, navbar_textIconView, navbar_textIconText);
 
 
                         root.getChildren().addAll(slider_redText, slider_greenText, slider_blueText, slider_red, slider_green, slider_blue);
@@ -1268,7 +1325,7 @@ public class Graphics extends Application {
 
                         finish_imageView.setFitWidth(1280);
                         finish_imageView.setFitHeight(720);
-                        finish_imageView.setX(300);
+                        finish_imageView.setX(200);
                         finish_imageView.setY(100);
 //                        root.getChildren().add(finish_imageView);
 //
@@ -1384,7 +1441,11 @@ public class Graphics extends Application {
                                 oneSecTimer.stop();
                                 root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text,start_imageView,
                                         finish_imageView, slider_red, slider_green, slider_blue, slider_redText, slider_greenText,
-                                        slider_blueText, header_menu_iconView, header_menu_rect, header_icon_text, main_header);
+                                        slider_blueText, header_menu_iconView, header_menu_rect, header_icon_text, main_header,
+                                        navbar_brushesRect, navbar_brushesIconView, navbar_brushesIconText,
+                                        navbar_shapesRect, navbar_shapesIconView, navbar_shapesIconText,
+                                        navbar_stickersRect, navbar_stickersIconView, navbar_stickersIconText,
+                                        navbar_textRect, navbar_textIconView, navbar_textIconText, field_for_features);
                                 root.getChildren().addAll(welcome_text, create_button, open_button, paste_button, new_file_imageView,
                                         new_file_Text, open_file_Text, paste_file_Text, open_folderImageView, paste_folderImageView,
                                         first_adv, second_image_with_desc, greetings_firstAdv_header, greetings_firstAdv_main,
@@ -1398,7 +1459,13 @@ public class Graphics extends Application {
                             public void handle(MouseEvent event) {
                                 try{
                                     ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.jpg"));
-                                    root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+                                    root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text,start_imageView,
+                                            finish_imageView, slider_red, slider_green, slider_blue, slider_redText, slider_greenText,
+                                            slider_blueText, header_menu_iconView, header_menu_rect, header_icon_text, main_header,
+                                            navbar_brushesRect, navbar_brushesIconView, navbar_brushesIconText,
+                                            navbar_shapesRect, navbar_shapesIconView, navbar_shapesIconText,
+                                            navbar_stickersRect, navbar_stickersIconView, navbar_stickersIconText,
+                                            navbar_textRect, navbar_textIconView, navbar_textIconText, field_for_features);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -1416,7 +1483,13 @@ public class Graphics extends Application {
                             public void handle(MouseEvent event) {
                                 try{
                                     ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", new FileOutputStream("image.png"));
-                                    root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text, start_imageView, finish_imageView, new_pic_Text, old_pic_Text);
+                                    root.getChildren().removeAll(canvas, back_button, save_jpg_Text, save_png_Text,start_imageView,
+                                            finish_imageView, slider_red, slider_green, slider_blue, slider_redText, slider_greenText,
+                                            slider_blueText, header_menu_iconView, header_menu_rect, header_icon_text, main_header,
+                                            navbar_brushesRect, navbar_brushesIconView, navbar_brushesIconText,
+                                            navbar_shapesRect, navbar_shapesIconView, navbar_shapesIconText,
+                                            navbar_stickersRect, navbar_stickersIconView, navbar_stickersIconText,
+                                            navbar_textRect, navbar_textIconView, navbar_textIconText, field_for_features);
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -1495,7 +1568,10 @@ public class Graphics extends Application {
                 background.setFill(Color.rgb(227,225,228));
                 root.getChildren().removeAll(success_close_button, inside_success_popup, success_popup_border1, success_popup_border2,
                         success_popup_border3, success_popup_border4, success_popup_main, success_popup_top);
-                root.getChildren().add(rgb_change_button);
+                root.getChildren().addAll(welcome_text, create_button, open_button, paste_button, new_file_imageView,
+                        new_file_Text, open_file_Text, paste_file_Text, open_folderImageView, paste_folderImageView,
+                        first_adv, second_image_with_desc, greetings_firstAdv_header, greetings_firstAdv_main,
+                        tiger_parrot_imageView, first_image_with_desc);
             }
         });
 
@@ -1516,37 +1592,6 @@ public class Graphics extends Application {
 
             }
         });
-
-        //// rgb_change_button events
-        // rgb_change_button onMouseEntered
-        rgb_change_button.setOnMouseEntered(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-
-                // rgb_change_button button cursor changer
-                rgb_change_button.setStyle("-fx-cursor: hand");
-                FillTransition fillTransition = new FillTransition(Duration.seconds(0.01), rgb_change_button );
-                fillTransition.setFromValue(Color.rgb(53,56,58));
-                fillTransition.setToValue(Color.rgb(214, 96, 148));
-                fillTransition.setAutoReverse(true);
-                fillTransition.play();
-
-            }
-        });
-
-        //rgb_change_button onMouseExited
-        rgb_change_button.setOnMouseExited(new EventHandler<MouseEvent>
-                () {
-
-            @Override
-            public void handle(MouseEvent t) {
-                rgb_change_button.setFill(Color.rgb(53,56,58));
-            }
-        });
-
-
 
         primaryStage.setMaximized(true);
         primaryStage.getIcons().add(new Image("file:pics/agreement.png"));
